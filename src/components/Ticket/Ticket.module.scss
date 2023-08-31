@@ -1,0 +1,47 @@
+.body{
+    margin-top: 15px;
+    padding: 15px;
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.25) ;
+    border-radius: 5px;
+    background-color: #fff;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+}
+.price{
+    padding: 0;
+    margin: 0;
+}
+.logo{
+    width: 110px;
+    height: 36px;
+}
+.flightInfo{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.wayInfo, .timeInfo, .transfereInfo{
+    display: flex;
+    flex-direction: column;
+}
+.airports, .inWay, .transfer{
+    color: #A0B0B9;
+    font-family: Open Sans;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 18px; /* 150% */
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+.time, .totalTime, .transferAirports{
+    color: #4A4A4A;
+    font-family: Open Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 21px; /* 150% */
+}
