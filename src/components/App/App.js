@@ -1,10 +1,11 @@
 import React from 'react'
 
-import Filter from './components/Filter'
-import Sorting from './components/Sorting'
+import Filter from '../Filter'
+import Sorting from '../Sorting'
+import Header from '../Header'
+import TicketList from '../TicketList'
+
 import classes from './App.module.scss'
-import Header from './components/Header'
-import TicketList from './components/TicketList'
 
 function App() {
   return (

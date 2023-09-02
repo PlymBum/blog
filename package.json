@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/eslint-parser": "^7.22.9",
+    "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -16,7 +17,9 @@
     "react-detect-offline": "^2.4.5",
     "react-dom": "^18.2.0",
     "react-lodash": "^0.1.2",
+    "react-redux": "^8.1.2",
     "react-scripts": "^5.0.1",
+    "redux": "^4.2.1",
     "sass": "^1.66.1",
     "web-vitals": "^2.1.4"
   },

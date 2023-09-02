@@ -1,26 +1,19 @@
-/* eslint-disable react/no-array-index-key */
-import React, { useState } from 'react'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import chaggeSort from '../redux/sortingActions'
 
 import classes from './Sorting.module.scss'
 
 export default function Sorting() {
-  const initialState = [
-    { text: 'ДЕШЕВЫЙ', id: 1, isActive: true },
-    { text: 'БЫСТРЫЙ', id: 2, isActive: false },
-    { text: 'ОПТИМАЛЬНЫЙ', id: 3, isActive: false },
-  ]
+  const dispatch = useDispatch()
+  const sortBtns = useSelector((state) => state.sort)
 
-  const [sorting, setSorting] = useState(initialState)
-
-  const toogleActive = (btnId) => {
-    const newArr = sorting.map((el) => {
-      if (el.id === btnId) return { ...el, isActive: true }
-      return { ...el, isActive: false }
-    })
-    setSorting(newArr)
+  const toogleActive = (id) => {
+    dispatch(chaggeSort(id))
   }
 
-  const sortingList = sorting.map((el) => {
+  const sortingList = sortBtns.map((el) => {
     return (
       <button
         type="button"
