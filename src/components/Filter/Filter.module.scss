@@ -38,3 +38,19 @@
 .checkbox:checked::after{
     background-image: url(./Checkbox_checked.svg);
 }
+@media (min-width:960px) {
+    .filter{
+        width: 232px;
+    float: left;
+    height: 252px;
+    margin-left: 50px;
+    }
+    .list {
+        font-size: 13px;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+    }
+}
