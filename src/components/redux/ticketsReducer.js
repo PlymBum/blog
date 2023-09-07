@@ -1,16 +1,20 @@
 import ApiTickets from '../../api/apiTickets'
 
-import { setTickets } from './ticketsActions'
+import { setTickets, toogleLoading } from './ticketsActions'
 
-const initialState = { tickets: [], filteredTickets: [] }
+const initialState = { tickets: [], filteredTickets: [], isLoading: true }
 
 export function ticketReducer(state = initialState, actions = {}) {
   switch (actions.type) {
     case 'SET_TICKETS': {
-      return { tickets: [...state.tickets, ...actions.payload.tickets], filteredTickets: [...state.filteredTickets] }
+      return {
+        ...state,
+        tickets: [...state.tickets, ...actions.payload.tickets],
+        filteredTickets: [...state.filteredTickets],
+      }
     }
     case 'SORT_TICKETS': {
-      return { tickets: [...actions.payload.tickets], filteredTickets: [...state.filteredTickets] }
+      return { ...state, tickets: [...actions.payload.tickets], filteredTickets: [...state.filteredTickets] }
     }
     case 'SET_ERROR': {
       return { ...state, error: actions.payload }
@@ -67,6 +71,9 @@ export function ticketReducer(state = initialState, actions = {}) {
       )
       return { ...state, tickets: sortedTickets, filteredTickets: sortedFilteredTickets }
     }
+    case 'TOOGLE_LOADING': {
+      return { ...state, isLoading: actions.loading }
+    }
     default:
       return state
   }
@@ -90,10 +97,13 @@ export const fetchTickets = (id) => async (dispatch) => {
       if (!tickets.stop) {
         subscribe(searchId)
       }
+      if (tickets.stop) {
+        dispatch(toogleLoading(false))
+      }
     }
   }
-  // subscribe(id) dev
-  const response = await apiTickets.getTickets(id)
-  const tickets = await response.json()
-  dispatch(setTickets(tickets))
+  subscribe(id)
+  // const response = await apiTickets.getTickets(id)
+  // const tickets = await response.json()
+  // dispatch(setTickets(tickets))
 }

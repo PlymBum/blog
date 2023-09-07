@@ -7,3 +7,5 @@ export const filterTicketsDelet = (filter) => ({ type: 'FILTER_TICKETS_DELETE', 
 export const sortByCheap = () => ({ type: 'SORT_CHEAP' })
 export const sortByFast = () => ({ type: 'SORT_FAST' })
 export const sortByOptimal = () => ({ type: 'SORT_OPTIMAL' })
+
+export const toogleLoading = (loading) => ({ type: 'TOOGLE_LOADING', loading })
