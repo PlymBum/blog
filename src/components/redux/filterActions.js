@@ -1,3 +1,4 @@
-// eslint-disable-next-line import/prefer-default-export
-export const toogleIsChecked = (id) => ({ type: 'TOOGLE_CHECKED', id })
-export const toogleALL = () => ({ type: 'TOOGLE_ALL' })
+export const toogleChecked = (filter) => ({ type: 'TOOGLE_CHECKED', filter })
+export const setAllChecked = () => ({ type: 'CHECKED_ALL' })
+export const setAllUnchecked = () => ({ type: 'UNCHECKED_ALL' })
+export const setChexboxAllUnchecked = () => ({ type: 'UNCHECKED_CHECKOX_ALL' })

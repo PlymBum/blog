@@ -1,34 +1,43 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import chaggeSort from '../redux/sortingActions'
+import { sortCheap, sortFast, sortOptimal } from '../redux/sortingActions'
+import { sortByCheap } from '../redux/ticketsActions'
 
 import classes from './Sorting.module.scss'
 
 export default function Sorting() {
   const dispatch = useDispatch()
-  const sortBtns = useSelector((state) => state.sort)
+  const { cheap, fast, optimal } = useSelector((state) => state.sort)
 
-  const toogleActive = (id) => {
-    dispatch(chaggeSort(id))
+  const cheapSort = () => {
+    dispatch(sortCheap())
+    dispatch(sortByCheap())
   }
-
-  const sortingList = sortBtns.map((el) => {
-    return (
-      <button
-        type="button"
-        className={`${classes.sorting__item} ${el.isActive ? classes.active : ''}`}
-        key={el.id}
-        onClick={() => toogleActive(el.id)}
-      >
-        {el.text}
-      </button>
-    )
-  })
+  const fastSort = () => {
+    dispatch(sortFast())
+  }
+  const optimalSort = () => {
+    dispatch(sortOptimal())
+  }
 
   return (
     <div className={classes.sorting}>
-      <nav className={classes.sorting__list}>{sortingList}</nav>
+      <nav className={classes.sorting__list}>
+        <button type="button" className={`${classes.sorting__item} ${cheap ? classes.active : ''}`} onClick={cheapSort}>
+          Дешевый
+        </button>
+        <button type="button" className={`${classes.sorting__item} ${fast ? classes.active : ''}`} onClick={fastSort}>
+          Быстрый
+        </button>
+        <button
+          type="button"
+          className={`${classes.sorting__item} ${optimal ? classes.active : ''}`}
+          onClick={optimalSort}
+        >
+          Оптимальный
+        </button>
+      </nav>
     </div>
   )
 }
