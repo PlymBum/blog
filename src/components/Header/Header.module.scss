@@ -1,0 +1,62 @@
+.header{
+    box-sizing: border-box;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    padding: 22px 22px;
+    background-color: #fff;
+    
+}
+.blog{
+    color: var(--heading-color, rgba(0, 0, 0, 0.85));
+
+    /* H6 - Header 6 */
+    font-family: Inter UI;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28px; /* 155.556% */
+}
+.nav{
+    display: flex;
+    align-content: center;
+    align-self: center;
+    gap:30px;
+}
+.signIn{
+    color: var(--heading-color, rgba(0, 0, 0, 0.85));
+    font-family: Inter UI;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28px; 
+    text-decoration: none;
+
+    box-sizing: border-box;
+    display: block;
+    width: 109px;
+    height: 51px;
+    
+    border: 2px solid transparent;
+    padding: 6px 18px;
+    border-radius: 5px;
+    text-align: center;
+}
+.signUp{
+    color: var(--success-color, #52C41A);
+    font-family: Inter UI;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28px;
+    text-decoration: none;
+
+    box-sizing: border-box;
+    display: block;
+    width: 109px;
+    height: 51px;
+    border: 2px solid #52C41A;
+    padding: 6px 18px;
+    border-radius: 5px;
+    text-align: center;
+}

@@ -1,13 +1,21 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-
-import classes from './App.module.scss'
+import Header from '../Header/Header'
+import PreviewPage from '../PreviewPage/PreviewPage'
+import ArticlePage from '../ArticlePage/ArticlePage'
 
 function App() {
   return (
-    <main className={classes.main}>
-        Go
-    </main>
+    <Router>
+      <Header />
+      <Route exact path="/article">
+        <PreviewPage />
+      </Route>
+      <Route exact path="/article/:slug">
+        <ArticlePage />
+      </Route>
+    </Router>
   )
 }
 

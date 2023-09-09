@@ -1,0 +1,109 @@
+.article{
+    box-sizing: border-box;
+    width: 941px;
+    background-color: #fff;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    &__preview{
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        width: 682px;
+    }
+    &__title{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 13px;
+        
+    }
+    &__titleText{
+        margin: 0;
+        color: var(--info-color, #1890FF);
+        font-family: Inter UI;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 28px; /* 140% */
+    }
+    &__text{
+        color: var(--text-color, rgba(0, 0, 0, 0.75));
+        font-family: Inter UI;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 22px; /* 183.333% */
+    }
+    &__autor{
+        display: flex;
+        flex-direction: row;
+        gap: 7px;
+    }
+    &__created{
+        color: var(--text-color-secondary, rgba(0, 0, 0, 0.50));
+        font-family: Inter UI;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 22px; /* 183.333% */
+    }
+    &__tagsList{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    &__tag{
+        color: var(--text-color-secondary, rgba(0, 0, 0, 0.50));
+        font-family: Inter;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        border-radius: 2px;
+        border: 1px solid var(--text-color-secondary, rgba(0, 0, 0, 0.50));
+        display: inline;
+        padding: 2px 5px;
+        margin-right: 8px;
+    }
+    &__likes{
+        display: flex;
+        gap: 5px;
+    }
+    &__description{
+        color: var(--text-color-secondary, rgba(0, 0, 0, 0.50));
+        font-family: Inter UI;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 22px; /* 183.333% */
+    }
+}
+.autor{
+    &__name{
+            color: var(--heading-color, rgba(0, 0, 0, 0.85));
+            font-family: Inter UI;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 28px; /* 155.556% */
+    }
+    &__avatar{
+        width: 46px;
+        height: 46px;
+    }
+}
+.likes{
+    &__img{}
+    &__count{
+        color: var(--text-color, rgba(0, 0, 0, 0.75));
+        font-family: Inter UI;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 22px; /* 183.333% */
+    }
+}
