@@ -35,6 +35,7 @@
     "react/static-property-placement": ["error", "static public field"],
     "jsx-a11y/label-has-associated-control": "off",
     "no-underscore-dangle": "off",
+    "react/jsx-props-no-spreading": "off",
     "import/order": [
       2,
       {
