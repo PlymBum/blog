@@ -1,7 +1,7 @@
-.login{
+.article{
     display: flex;
     flex-direction: column;
-    width: 384px;
+    width: 938px;
     // height: 647px;
     border-radius: 6px;
     border: 1px solid var(--grey-grey-5, #D9D9D9);
@@ -31,6 +31,7 @@
         padding: 0;
     }
     &__btn{
+        box-sizing: border-box;
         color: var(--grey-grey-1, #FFF);
         text-align: center;
         /* Regular / 16 px | 24 px */
@@ -39,11 +40,23 @@
         font-style: normal;
         font-weight: 400;
         line-height: 24px; /* 150% */
-
+        width: 319px;
         border: none;
         padding: 8px 16px;
         border-radius: 4px;
         background: var(--daybreak-blue-blue-6, #1890FF);
+        &_delete{
+            width: 118px;
+            background-color: transparent;
+            border-radius: 4px;
+            border: 1px solid var(--highlight-color, #F5222D);
+            color: #F5222D;
+        }
+        &_add{
+            width: 136px;
+            height: 42px;
+            align-self: flex-end;
+        }
     }
     &__desription{
         margin-top: 8px;
@@ -72,12 +85,13 @@
 }
 .input{
     &__field{
-        width: 320px;
+        width: 100%;
         height: 40px;
         border-radius: 5px;
         border: 1px solid #D9D9D9;
     }
     &__label{
+        text-align: start;
         margin-bottom: 10px;
     }
     &__error{
@@ -91,35 +105,22 @@
         font-weight: 400;
         line-height: 22px; /* 157.143% */
     }
-}
-.privacy{
-    border-top: 1px solid #E8E8E8;
-    padding: 8px;
-    display: flex;
-    padding-left: 20px;
-    &__text{
-        margin-left: auto;
+    &__textarea{
+        height: 168px;
+        resize: none;
     }
-    &__checkbox{
-        position: relative;
-        visibility: hidden;
-        width: 1px;
-        height: 1px;
 
-        &::before{
-            visibility: visible;
-            position: absolute;
-            content: '';
-            background-image: url(./Checkbox.svg);
-            background-size: 16px 16px;
-            left: -20px;
-            background-repeat: no-repeat;
-            width: 16px;
-            height: 16px;
-            
-        }
-        &:checked::before{
-            background-image: url(./checkbox-checked.svg);
-        }
+    &__tag{
+        width: 300px;
+        height: 40px;
+        margin-top: 5px;
+        margin-right: 18px;
+        gap:5px;
+        
+        
     }
+.tags{
+    display: flex;
+    gap:18px;
+}
 }

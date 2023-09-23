@@ -1,11 +1,35 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 // import { useForm } from 'react-hook-form'
 // import { Link } from 'react-router-dom'
-
 // import classes from './SignInPage.module.scss'
+import { useSelector } from 'react-redux'
+import { useHistory, useLocation } from 'react-router'
+
 import { SignInForms } from '../Forms'
 
 export default function SignInPage() {
+  const { isLogined } = useSelector((state) => state.user)
+  const history = useHistory()
+  const location = useLocation()
+
+  const { from } = location.state || { from: { pathname: '/' } }
+  // const login = () => {
+  //   auth.signin(() => {
+  //     history.replace(from)
+  //   })
+  // }
+
+  useEffect(() => {
+    if (isLogined) {
+      history.replace(from)
+    }
+    // if (isLogined) history.push('/profile')
+  }, [isLogined])
+
+  // const back = () => {
+  //   history.goBack()
+  // }
+  // console.log(location, 'location')
   // const {
   //   register,
   //   handleSubmit,

@@ -1,33 +1,40 @@
 /* eslint-disable no-restricted-syntax */
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
 
-import { signUp } from '../../redux/user/user.slice'
+import { changeProfile } from '../../redux/user/user.slice'
 
 import classes from './Forms.module.scss'
 
-export default function SignUpForm() {
-  const { isLogined, error } = useSelector((state) => state.user)
-  const history = useHistory()
+export default function EditProfileForm() {
+  const { error, user, isLogined } = useSelector((state) => state.user)
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const {
     register,
     handleSubmit,
-    watch,
     setError,
+    setValue,
     formState: { errors },
   } = useForm()
-  const pwd = watch('password')
 
   const onSubmit = (data) => {
-    const { username, email, password } = data
-    dispatch(signUp(username, email, password))
+    // const { username, email, password, image } = data
+    dispatch(changeProfile(data.username, data.email, data.password, data.image))
   }
   useEffect(() => {
-    if (isLogined) history.push('/article')
+    if (user !== '') {
+      setValue('username', user.username)
+      setValue('email', user.email)
+      setValue('image', user.image)
+    }
+  }, [user])
+
+  useEffect(() => {
+    if (!isLogined) history.push('/sign-in')
   }, [isLogined])
 
   useEffect(() => {
@@ -41,7 +48,7 @@ export default function SignUpForm() {
   return (
     <div className={classes.login}>
       <form className={classes.login__form} onSubmit={handleSubmit(onSubmit)}>
-        <h3 className={classes.login__title}>Create new account</h3>
+        <h3 className={classes.login__title}>Edit Profile</h3>
         <label className={classes.input}>
           <div className={classes.input__label}>Username</div>
           <input
@@ -72,13 +79,13 @@ export default function SignUpForm() {
           {errors.email && <span className={classes.input__errorMeesage}> {errors.email.message}</span>}
         </label>
         <label className={classes.input}>
-          <div className={classes.input__label}>Password</div>
+          <div className={classes.input__label}>New password</div>
           <input
             className={`${classes.input__field} ${errors.password ? classes.input__error : ''}`}
             placeholder="Password"
             type="password"
             {...register('password', {
-              required: 'This field is required',
+              // required: 'This field is required',
               minLength: { value: 6, message: 'Length must be from 6 to 40 characters' },
               maxLength: { value: 40, message: 'Length must be from 6 to 40 characters' },
             })}
@@ -86,41 +93,23 @@ export default function SignUpForm() {
           {errors.password && <span className={classes.input__errorMeesage}> {errors.password.message}</span>}
         </label>
         <label className={classes.input}>
-          <div className={classes.input__label}>Repeat Password</div>
+          <div className={classes.input__label}>Avatar image (url)</div>
           <input
-            className={`${classes.input__field} ${errors.repeatPassword ? classes.input__error : ''}`}
-            placeholder="Password"
-            type="password"
-            {...register('repeatPassword', {
-              required: 'This field is required',
-              validate: {
-                matchPass: (value) => value === pwd || 'The passwords do not match',
+            className={`${classes.input__field} ${errors.image ? classes.input__error : ''}`}
+            placeholder="Avatar image"
+            {...register('image', {
+              pattern: {
+                value:
+                  /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)/g,
+                message: 'Enter the correct url',
               },
             })}
           />
-          {errors.repeatPassword && (
-            <span className={classes.input__errorMeesage}> {errors.repeatPassword.message}</span>
-          )}
+          {errors.image && <span className={classes.input__errorMeesage}> {errors.image.message}</span>}
         </label>
-        <label className={`${classes.input} ${classes.privacy}`}>
-          <input
-            className={classes.privacy__checkbox}
-            type="checkbox"
-            {...register('agree', { required: 'you must accept the agreement to register' })}
-          />
-          <span className={classes.privacy__text}>I agree to the processing of my personal information</span>
-        </label>
-        {errors.agree && <span className={classes.input__errorMeesage}> {errors.agree.message}</span>}
 
-        <input className={classes.login__btn} type="submit" value="Login" />
+        <input className={classes.login__btn} type="submit" value="Save" />
       </form>
-      <div className={classes.login__desription}>
-        Already have an account?{' '}
-        <Link className={classes.login__link} to="/sign-in">
-          Sign In
-        </Link>
-        .
-      </div>
     </div>
   )
 }

@@ -1,6 +1,9 @@
+/* eslint-disable default-param-last */
 import { createSlice } from '@reduxjs/toolkit'
 
 import ApiBlog from '../../apiBlog/ApiBlog'
+
+const apiBlog = new ApiBlog()
 
 const initialState = {
   articles: [],
@@ -22,18 +25,20 @@ export const articlesSlice = createSlice({
     setError: (state) => {
       return { ...state, isError: true, isLoading: false }
     },
+    toogleFavorite: (state, { payload }) => {
+      return { ...state, ...payload }
+    },
   },
 })
 
 export const { actions, reducer } = articlesSlice
 
 export const fetchArticles =
-  (offset = 1) =>
+  (offset = 1, token = '') =>
   async (dispatch) => {
     dispatch(actions.setLoading(true))
-    const apiBlog = new ApiBlog()
     apiBlog
-      .getArticles(offset)
+      .getArticles(offset, token)
       .then((a) => {
         dispatch(actions.setArticles(a))
       })
@@ -42,3 +47,12 @@ export const fetchArticles =
       })
     dispatch(actions.setLoading(false))
   }
+
+export const toogleFavorite = (slug, token) => async (dispatch) => {
+  apiBlog
+    .tooglefavorite(slug, token)
+    .then((a) => {
+      console.log(a, 'toogle response')
+    })
+    .catch(dispatch(actions.setError()))
+}

@@ -20,6 +20,7 @@
         flex-direction: row;
         align-items: center;
         gap: 13px;
+        justify-content: space-between;
         
     }
     &__titleText{
@@ -30,6 +31,10 @@
         font-style: normal;
         font-weight: 400;
         line-height: 28px; /* 140% */
+        text-decoration: none;
+        white-space:nowrap;
+        overflow: hidden; 
+        text-overflow: ellipsis;
     }
     &__text{
         color: var(--text-color, rgba(0, 0, 0, 0.75));

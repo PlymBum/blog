@@ -1,17 +1,33 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import classes from './ArticlePreview.module.scss'
 // import avatar from './Rectangle 1.png'
-import likeImg from './heart 1.svg'
+import heart from './heart.svg'
+import heartActive from './Heart_active.svg'
 
-export default function Article({ title, favoritesCount, tagList, description, author, createdAt }) {
+export default function Article({
+  title,
+  favoritesCount,
+  favorited,
+  tagList,
+  description,
+  author,
+  createdAt,
+  slug,
+  toogleFavorite,
+}) {
   return (
     <div className={classes.article}>
       <div className={classes.article__preview}>
         <div className={classes.article__title}>
-          <h5 className={classes.article__titleText}>{title}</h5>
-          <div className={classes.article__likes}>
-            <img className={classes.likes__img} src={likeImg} alt="like" />
+          <Link to={`/article/${slug}`} className={classes.article__titleText}>
+            {title}
+          </Link>
+          <div className={classes.article__likes} onClick={() => toogleFavorite(slug, favorited)}>
+            <img className={classes.likes__img} src={favorited ? heartActive : heart} alt="like" />
             <span className={classes.likes__count}>{favoritesCount}</span>
           </div>
         </div>
