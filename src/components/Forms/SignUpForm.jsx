@@ -1,15 +1,14 @@
-/* eslint-disable no-restricted-syntax */
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
-import { signUp } from '../../redux/user/user.slice'
+import { useRegisterUserMutation } from '../../redux/api/blogApi/user'
+import { actions } from '../../redux/slices/user.slice'
 
 import classes from './Forms.module.scss'
 
 export default function SignUpForm() {
-  const { isLogined, error } = useSelector((state) => state.user)
   const history = useHistory()
   const dispatch = useDispatch()
 
@@ -22,21 +21,25 @@ export default function SignUpForm() {
   } = useForm()
   const pwd = watch('password')
 
-  const onSubmit = (data) => {
-    const { username, email, password } = data
-    dispatch(signUp(username, email, password))
+  const [registUser, { error, data }] = useRegisterUserMutation()
+
+  const onSubmit = (user) => {
+    registUser({ user: { ...user } })
   }
-  useEffect(() => {
-    if (isLogined) history.push('/article')
-  }, [isLogined])
 
   useEffect(() => {
-    if (error !== '') {
-      for (const [key, value] of Object.entries(error.errors)) {
+    if (error) {
+      for (const [key, value] of Object.entries(error.data.errors)) {
         setError(key, { type: 'custom', message: `${key} ${value}` })
       }
     }
-  }, [error])
+    if (data) {
+      const { token } = data.user
+      localStorage.setItem('token', token)
+      dispatch(actions.setUser(data))
+      history.push('/')
+    }
+  }, [error, data])
 
   return (
     <div className={classes.login}>

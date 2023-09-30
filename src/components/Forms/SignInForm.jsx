@@ -1,30 +1,49 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { login } from '../../redux/user/user.slice'
 import Error from '../Error'
+import { useLoginUserMutation } from '../../redux/api/blogApi/user'
+import { actions } from '../../redux/slices/user.slice'
 
 import classes from './Forms.module.scss'
 
 export default function SignInForms() {
   const dispatch = useDispatch()
-  const { error } = useSelector((state) => state.user)
-  // const history = useHistory()
+  const location = useLocation()
+  const { isLogined } = useSelector((state) => state.user)
+
+  const { from } = location.state || { from: { pathname: '/' } }
+
   const {
     register,
     handleSubmit,
-    // watch,
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => {
-    const { email, password } = data
-    dispatch(login(email, password))
+  const history = useHistory()
+
+  const [loginUser, { error, data }] = useLoginUserMutation()
+
+  const onSubmit = (user) => {
+    loginUser({ user: { ...user } })
   }
 
-  const loginError = error !== '' ? <Error message="Login or password incorrect" /> : null
+  useEffect(() => {
+    if (data) {
+      const { token } = data.user
+      localStorage.setItem('token', token)
+      dispatch(actions.setUser(data))
+      history.push('/')
+    }
+  }, [error, data])
+
+  useEffect(() => {
+    if (isLogined) history.replace(from)
+  }, [isLogined])
+
+  const loginError = error ? <Error message="Login or password incorrect" /> : null
 
   return (
     <div className={classes.login}>

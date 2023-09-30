@@ -4,15 +4,17 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
 
-import { changeProfile } from '../../redux/user/user.slice'
+import { useUpdateUserMutation } from '../../redux/api/blogApi/user'
+import { actions } from '../../redux/slices/user.slice'
 
 import classes from './Forms.module.scss'
 
 export default function EditProfileForm() {
-  const { error, user, isLogined } = useSelector((state) => state.user)
+  const { user, isLogined } = useSelector((state) => state.user)
   const dispatch = useDispatch()
   const history = useHistory()
 
+  const [updateUser, result] = useUpdateUserMutation()
   const {
     register,
     handleSubmit,
@@ -22,9 +24,21 @@ export default function EditProfileForm() {
   } = useForm()
 
   const onSubmit = (data) => {
-    // const { username, email, password, image } = data
-    dispatch(changeProfile(data.username, data.email, data.password, data.image))
+    const payload = { ...data }
+    if (data.password === '') delete payload.password
+    updateUser(payload)
   }
+  useEffect(() => {
+    if (result.isSuccess) {
+      dispatch(actions.setUser(result.data))
+    }
+    if (result.isError) {
+      for (const [key, value] of Object.entries(result.error.data.errors)) {
+        setError(key, { type: 'custom', message: `${key} ${value}` })
+      }
+    }
+  }, [result])
+
   useEffect(() => {
     if (user !== '') {
       setValue('username', user.username)
@@ -36,14 +50,6 @@ export default function EditProfileForm() {
   useEffect(() => {
     if (!isLogined) history.push('/sign-in')
   }, [isLogined])
-
-  useEffect(() => {
-    if (error !== '') {
-      for (const [key, value] of Object.entries(error.errors)) {
-        setError(key, { type: 'custom', message: `${key} ${value}` })
-      }
-    }
-  }, [error])
 
   return (
     <div className={classes.login}>

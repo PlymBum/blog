@@ -15,37 +15,22 @@ function Article({ onSubmit, data }) {
     tagList: ['\n'],
   }
   if (data) {
-    defaultValues = { ...data }
+    const { title, description, body, tagList } = data
+    defaultValues = { title, description, body, tagList }
   }
   const {
     register,
     handleSubmit,
-    // setError,
-    // setValue,
     control,
     formState: { errors },
   } = useForm({
     defaultValues,
-    // : {
-    //   title: data.title,
-    //   tagList: ['\n'],
-    // },
   })
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'tagList',
   })
-
-  // const onSubmit = (data) => {
-  //   const token = localStorage.getItem('token')
-  //   if (!token) {
-  //     history.push('/sign-in')
-  //   } else {
-  //     const api = new ApiBlog()
-  //     api.createArticle(data, token).then((a) => history.push(`/article/${a.article.slug}`))
-  //   }
-  // }
 
   return (
     <div className={classes.article}>

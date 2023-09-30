@@ -1,52 +1,56 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router'
 
-import { fetchArticles } from '../../redux/articles/articles.slice'
+import { useGetArticlesQuery, useToogleFavoriteArticleMutation } from '../../redux/api/blogApi/blog'
 import PaginationComponent from '../PaginationComponent/PaginationComponent'
 import ArticlePreview from '../ArticlePreview'
 import Loading from '../Loading'
 import Error from '../Error/Error'
-import ApiBlog from '../../apiBlog/ApiBlog'
 
 export default function PreviewPage() {
   const [currentPage, setCurrentPage] = useState(1)
-  const { articles, count, isLoading, isError } = useSelector((state) => state.articles)
-  const dispatch = useDispatch()
+  const { data, error, isLoading } = useGetArticlesQuery(currentPage * 20 - 20)
   const history = useHistory()
-  const api = new ApiBlog()
 
+  const [toogleFavorite] = useToogleFavoriteArticleMutation()
   const changePage = (page) => {
     setCurrentPage(page)
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    })
   }
-  const toogleFavorite = (slug, bool) => {
+  const favorite = (slug, bool) => {
     const token = localStorage.getItem('token')
     if (!token) {
       history.push('/sign-in')
     } else {
-      api.toogleFavorite(slug, token, bool).then(dispatch(fetchArticles(currentPage * 20 - 20, token)))
+      const payload = {
+        slug,
+        favorite: bool,
+      }
+      toogleFavorite(payload)
     }
   }
-  // useEffect(() => {
-  //   dispatch(fetchArticles(currentPage * 20 - 20))
-  // }, [])
 
-  useEffect(() => {
-    const token = localStorage.getItem('token') || ''
-    dispatch(fetchArticles(currentPage * 20 - 20, token))
-  }, [currentPage])
+  // useEffect(() => {
+  // const token = localStorage.getItem('token') || ''
+
+  //   dispatch(fetchArticles(currentPage * 20 - 20, token))
+  // }, [currentPage])
 
   const loading = isLoading ? <Loading /> : null
 
   const pagination = !isLoading ? (
-    <PaginationComponent current={currentPage} total={count} onChange={changePage} defaultPageSize={20} />
+    <PaginationComponent current={currentPage} total={data.articlesCount} onChange={changePage} defaultPageSize={20} />
   ) : null
 
-  const error = isError && !isLoading ? <Error /> : null
+  const errorComponent = error && !isLoading ? <Error /> : null
 
   const articlesList =
-    !isLoading && !isError
-      ? articles.map((el) => {
+    !isLoading && !error
+      ? data.articles.map((el) => {
           return (
             <ArticlePreview
               key={el.slug}
@@ -57,7 +61,7 @@ export default function PreviewPage() {
               description={el.description}
               author={el.author}
               createdAt={el.createdAt}
-              toogleFavorite={toogleFavorite}
+              toogleFavorite={favorite}
               favorited={el.favorited}
             />
           )
@@ -65,7 +69,7 @@ export default function PreviewPage() {
       : null
   return (
     <div>
-      {error}
+      {errorComponent}
       {loading}
       {articlesList}
       {pagination}

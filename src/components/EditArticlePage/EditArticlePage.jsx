@@ -1,39 +1,36 @@
 import React, { useEffect } from 'react'
 import { useHistory, withRouter } from 'react-router'
-import { useDispatch, useSelector } from 'react-redux'
 
 import Article from '../Article'
-import ApiBlog from '../../apiBlog/ApiBlog'
-import { fetchArticle } from '../../redux/articles/article.slice'
 import Loading from '../Loading'
+import { useGetArticleBySlugQuery, useUpdateArticleMutation } from '../../redux/api/blogApi/blog'
 
 import classes from './EditArticlePage.module.scss'
 
 function EditArticlePage({ match }) {
   const history = useHistory()
-  const dispatch = useDispatch()
-  const { article } = useSelector((state) => state.article)
-
   const { slug } = match.params
-  useEffect(() => {
-    dispatch(fetchArticle(slug))
-  }, [])
+  const [updateArticle, result] = useUpdateArticleMutation()
+  const { data: article, isLoading } = useGetArticleBySlugQuery(slug)
 
-  const updateArticle = (data) => {
+  const onSubmit = (data) => {
     const token = localStorage.getItem('token')
+    const payload = { slug, body: { ...data } }
     if (!token) {
       history.push('/sign-in')
     } else {
-      const api = new ApiBlog()
-      api.updateArticle(slug, data, token).then((a) => history.push(`/article/${a.article.slug}`))
+      updateArticle(payload)
     }
   }
+  useEffect(() => {
+    if (result.isSuccess) history.push(`/article/${slug}`)
+  }, [result])
 
-  if (!article.title) return <Loading />
+  if (isLoading) return <Loading />
 
   return (
     <div className={classes.container}>
-      <Article onSubmit={updateArticle} data={article} />
+      <Article onSubmit={onSubmit} data={article.article} />
     </div>
   )
 }

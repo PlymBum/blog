@@ -1,7 +1,6 @@
 .article{
     box-sizing: border-box;
     width: 941px;
-    height: 140px;
     background-color: #fff;
     margin-left: auto;
     margin-right: auto;
@@ -20,7 +19,6 @@
         flex-direction: row;
         align-items: center;
         gap: 13px;
-        justify-content: space-between;
         
     }
     &__titleText{
@@ -31,10 +29,7 @@
         font-style: normal;
         font-weight: 400;
         line-height: 28px; /* 140% */
-        text-decoration: none;
-        white-space:nowrap;
-        overflow: hidden; 
-        text-overflow: ellipsis;
+        
     }
     &__text{
         color: var(--text-color, rgba(0, 0, 0, 0.75));
@@ -43,9 +38,15 @@
         font-style: normal;
         font-weight: 400;
         line-height: 22px; /* 183.333% */
-        // white-space:nowrap;
-        overflow: hidden; 
-        text-overflow: ellipsis;
+    }
+    &__user{
+        display: flex;
+        flex-direction: column;
+    }
+    &__controllers{
+        display: flex;
+        gap: 12px;
+        margin-top: 30px;
     }
     &__autor{
         display: flex;
@@ -81,6 +82,33 @@
     &__likes{
         display: flex;
         gap: 5px;
+    }
+    &__description{
+        color: var(--text-color-secondary, rgba(0, 0, 0, 0.50));
+        font-family: Inter UI;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 22px; /* 183.333% */
+    }
+    &__btn{
+        padding: 0 17px;
+        box-sizing: border-box;
+        height: 31px;
+        border: 1px solid;
+        border-radius: 5px;
+        background-color: transparent;
+        font-family: Inter UI;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 22px; /* 157.143% */
+        &_delete{
+            color: var(--error-color, #F5222D);
+        }
+        &_edit{
+            color: var(--success-color, #52C41A);
+        }
     }
 }
 .autor{

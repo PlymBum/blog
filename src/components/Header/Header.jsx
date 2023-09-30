@@ -2,17 +2,19 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { actions } from '../../redux/user/user.slice'
+import { actions } from '../../redux/slices/user.slice'
 
 import classes from './Header.module.scss'
 import avatar from './avatar.png'
 
 export default function Header() {
+  // const { isLogined, user } = useSelector((state) => state.user)
   const { isLogined, user } = useSelector((state) => state.user)
   const dispatch = useDispatch()
+
   const logout = () => {
-    localStorage.clear()
     dispatch(actions.clearUser())
+    localStorage.clear()
   }
 
   const nav = !isLogined ? (
