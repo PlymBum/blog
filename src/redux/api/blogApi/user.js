@@ -8,7 +8,6 @@ const user = blogApi.injectEndpoints({
         url: '/user',
         headers: {
           'content-type': 'text/plain',
-          //   Authorization: `Token ${token}`,
           Authorization: `Token ${localStorage.getItem('token')}`,
         },
       }),
@@ -37,6 +36,7 @@ const user = blogApi.injectEndpoints({
         method: 'Put',
         body: { user: { ...data } },
       }),
+      invalidatesTags: ['post', 'posts'],
     }),
   }),
   overrideExisting: false,

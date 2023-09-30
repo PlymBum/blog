@@ -91,7 +91,6 @@ export default function EditProfileForm() {
             placeholder="Password"
             type="password"
             {...register('password', {
-              // required: 'This field is required',
               minLength: { value: 6, message: 'Length must be from 6 to 40 characters' },
               maxLength: { value: 40, message: 'Length must be from 6 to 40 characters' },
             })}

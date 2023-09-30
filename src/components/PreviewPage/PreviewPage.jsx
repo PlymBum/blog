@@ -34,12 +34,6 @@ export default function PreviewPage() {
     }
   }
 
-  // useEffect(() => {
-  // const token = localStorage.getItem('token') || ''
-
-  //   dispatch(fetchArticles(currentPage * 20 - 20, token))
-  // }, [currentPage])
-
   const loading = isLoading ? <Loading /> : null
 
   const pagination = !isLoading ? (

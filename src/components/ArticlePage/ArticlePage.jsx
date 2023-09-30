@@ -12,11 +12,7 @@ import ArticleFull from '../ArticleFull'
 
 function ArticlePage({ match }) {
   const { slug } = match.params
-  // const dispatch = useDispatch()
-  // const { article } = useSelector((state) => state.article)
   const { user } = useSelector((state) => state.user)
-  // const history = useHistory()
-  // const api = new ApiBlog()
   const [toogleFavorite] = useToogleFavoriteArticleMutation()
 
   const { data, isLoading } = useGetArticleBySlugQuery(slug)

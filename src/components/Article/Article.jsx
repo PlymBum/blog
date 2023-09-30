@@ -1,16 +1,11 @@
 /* eslint-disable no-restricted-syntax */
 import React from 'react'
 import { useForm, useFieldArray } from 'react-hook-form'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { useHistory } from 'react-router'
-// import ApiBlog from '../../apiBlog/ApiBlog'
 import { withRouter } from 'react-router'
 
 import classes from './Article.module.scss'
 
 function Article({ onSubmit, data }) {
-  // const history = useHistory()
-  // console.log(match)
   let defaultValues = {
     tagList: ['\n'],
   }

@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 import format from 'date-fns/format'
 
 import classes from './ArticlePreview.module.scss'
-// import avatar from './Rectangle 1.png'
 import heart from './heart.svg'
 import heartActive from './Heart_active.svg'
 

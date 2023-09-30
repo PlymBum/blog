@@ -9,7 +9,6 @@ export const blogApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   endpoints: (builder) => ({
     getArticles: builder.query({
-      //   query: (offset) => `/articles?limit=20&offset=${offset}`,
       query: (offset) => ({
         url: `/articles?limit=20&offset=${offset}`,
         headers: {
@@ -20,7 +19,6 @@ export const blogApi = createApi({
       providesTags: ['posts'],
     }),
     getArticleBySlug: builder.query({
-      //   query: (slug) => `/articles/${slug}`,
       query: (slug) => ({
         url: `/articles/${slug}`,
         headers: {
