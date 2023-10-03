@@ -8,7 +8,7 @@ import classes from './CreateArticlePage.module.scss'
 
 export default function CreateArticlePage() {
   const history = useHistory()
-  const [createArticle, result] = useCreateArticleMutation()
+  const [createArticle, { isSuccess, isLoading, data }] = useCreateArticleMutation()
 
   const onSubmit = (payload) => {
     const token = localStorage.getItem('token')
@@ -19,11 +19,11 @@ export default function CreateArticlePage() {
     }
   }
   useEffect(() => {
-    if (result.isSuccess) history.push(`/article/${result.data.article.slug}`)
-  }, [result])
+    if (isSuccess) history.push(`/article/${data.article.slug}`)
+  }, [isSuccess])
   return (
     <div className={classes.container}>
-      <Article onSubmit={onSubmit} />
+      <Article onSubmit={onSubmit} isLoading={isLoading} />
     </div>
   )
 }

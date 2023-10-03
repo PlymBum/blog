@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Error from '../Error'
 import { useLoginUserMutation } from '../../redux/api/blogApi/user'
 import { actions } from '../../redux/slices/user.slice'
+import Loading from '../Loading'
 
 import classes from './Forms.module.scss'
 
@@ -24,7 +25,7 @@ export default function SignInForms() {
 
   const history = useHistory()
 
-  const [loginUser, { error, data }] = useLoginUserMutation()
+  const [loginUser, { error, data, isLoading }] = useLoginUserMutation()
 
   const onSubmit = (user) => {
     loginUser({ user: { ...user } })
@@ -78,7 +79,11 @@ export default function SignInForms() {
           />
           {errors.password && <span className={classes.input__errorMeesage}> {errors.password.message}</span>}
         </label>
-        <input className={classes.login__btn} type="submit" value="Login" />
+        {!isLoading ? (
+          <input className={classes.login__btn} type="submit" value="Login" disabled={isLoading} />
+        ) : (
+          <Loading />
+        )}
       </form>
       <div className={classes.login__desription}>
         Don’t have an account?{' '}

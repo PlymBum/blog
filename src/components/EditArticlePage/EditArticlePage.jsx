@@ -10,7 +10,7 @@ import classes from './EditArticlePage.module.scss'
 function EditArticlePage({ match }) {
   const history = useHistory()
   const { slug } = match.params
-  const [updateArticle, result] = useUpdateArticleMutation()
+  const [updateArticle, { isSuccess, isLoading: isFetching }] = useUpdateArticleMutation()
   const { data: article, isLoading } = useGetArticleBySlugQuery(slug)
 
   const onSubmit = (data) => {
@@ -23,14 +23,14 @@ function EditArticlePage({ match }) {
     }
   }
   useEffect(() => {
-    if (result.isSuccess) history.push(`/article/${slug}`)
-  }, [result])
+    if (isSuccess) history.push(`/article/${slug}`)
+  }, [isSuccess])
 
   if (isLoading) return <Loading />
 
   return (
     <div className={classes.container}>
-      <Article onSubmit={onSubmit} data={article.article} />
+      <Article onSubmit={onSubmit} data={article.article} isLoading={isFetching} />
     </div>
   )
 }

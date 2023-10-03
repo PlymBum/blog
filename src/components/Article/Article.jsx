@@ -3,9 +3,11 @@ import React from 'react'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { withRouter } from 'react-router'
 
+import Loading from '../Loading'
+
 import classes from './Article.module.scss'
 
-function Article({ onSubmit, data }) {
+function Article({ onSubmit, data, isLoading }) {
   let defaultValues = {
     tagList: ['\n'],
   }
@@ -96,7 +98,11 @@ function Article({ onSubmit, data }) {
             </button>
           </div>
         </label>
-        <input className={classes.article__btn} type="submit" value="Save" />
+        {!isLoading ? (
+          <input className={classes.article__btn} type="submit" value="Save" disabled={isLoading} />
+        ) : (
+          <Loading />
+        )}
       </form>
     </div>
   )

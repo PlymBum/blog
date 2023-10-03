@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 
 import { useRegisterUserMutation } from '../../redux/api/blogApi/user'
 import { actions } from '../../redux/slices/user.slice'
+import Loading from '../Loading'
 
 import classes from './Forms.module.scss'
 
@@ -21,7 +22,7 @@ export default function SignUpForm() {
   } = useForm()
   const pwd = watch('password')
 
-  const [registUser, { error, data }] = useRegisterUserMutation()
+  const [registUser, { error, data, isLoading }] = useRegisterUserMutation()
 
   const onSubmit = (user) => {
     registUser({ user: { ...user } })
@@ -115,7 +116,11 @@ export default function SignUpForm() {
         </label>
         {errors.agree && <span className={classes.input__errorMeesage}> {errors.agree.message}</span>}
 
-        <input className={classes.login__btn} type="submit" value="Login" />
+        {!isLoading ? (
+          <input className={classes.login__btn} type="submit" value="Login" disabled={isLoading} />
+        ) : (
+          <Loading />
+        )}
       </form>
       <div className={classes.login__desription}>
         Already have an account?{' '}

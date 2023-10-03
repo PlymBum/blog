@@ -34,9 +34,12 @@ function App() {
       <Route exact path="/sign-in">
         <SignInPage />
       </Route>
-      <PrivateRoute exact path="/article/:slug">
+      <Route exact path="/article/:slug">
         <ArticlePage />
-      </PrivateRoute>
+      </Route>
+      {/* <PrivateRoute exact path="/article/:slug">
+        <ArticlePage />
+      </PrivateRoute> */}
       <PrivateRoute exact path="/new-article">
         <CreateArticlePage />
       </PrivateRoute>
